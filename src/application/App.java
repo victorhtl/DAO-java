@@ -1,8 +1,4 @@
-package application; 
-/* 
- * Projeto em andamento!!!!!!!!!!!!!!!!
- * DAO do curso do Nélio Alves
-*/
+package application;
 
 import java.sql.Date;
 import java.util.List;
@@ -11,24 +7,29 @@ import model.dao.DaoFactory;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
+import DB.DB;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        SellerDao sellerDao = DaoFactory.createSellerDao();
+        SellerDao sellerDao = DaoFactory.createSellerDao(
+                "jdbc:postgresql://localhost:5432/estudos_java",
+                "postgres",
+                "0000"
+        );
         
-        System.out.println("=== Teste 1 : seller findById: ===");
+        System.out.println("=== Teste 1 : get seller by id: ===");
         Seller seller = sellerDao.findById(3);
         System.out.println(seller);
 
         System.out.println();
-        System.out.println("=== Teste 2 : seller findById: ===");
+        System.out.println("=== Teste 2 : get sellers by department id: ===");
         List<Seller> sellers = sellerDao.findByIdDepartment(2);
         for(Seller s : sellers){
             System.out.println(s);
         }
 
         System.out.println();
-        System.out.println("=== Teste 3 : seller findall ===");
+        System.out.println("=== Teste 3 : get all sellers ===");
         sellers = sellerDao.findAll();
         for(Seller s : sellers){
             System.out.println(s);
@@ -48,7 +49,9 @@ public class App {
         System.out.println("Update complete");
 
         System.out.println();
-        System.out.println("=== Teste 6 : Delete ===");
+        System.out.println("=== Teste 6 : Seller Delete ===");
         sellerDao.deleteById(9);
+
+        DB.closeConnection();
     }
 }

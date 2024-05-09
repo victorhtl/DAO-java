@@ -9,10 +9,10 @@ import java.sql.Statement;
 public class DB {
     private static Connection conn = null;
 
-    public static Connection getConnection(){
+    public static Connection getConnection(String url, String user, String password){
         if(conn == null){
             try {
-                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/estudos_java", "postgres", "3003");
+                conn = DriverManager.getConnection(url, user, password);
                 if(conn != null){
                     System.out.println("Connection established");
                 } else {

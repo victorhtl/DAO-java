@@ -30,7 +30,13 @@ public class SellerDaoJDBC implements SellerDao {
 
         try {
             // O argumento RETURN_GENERATED_KEYS serve para retornar o id gerado para esta inserção
-            st = conn.prepareStatement("INSERT INTO seller (Name, Email, BirthDate, BaseSalary, DepartmentId) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            st = conn.prepareStatement(
+                        "INSERT INTO seller " +
+                            "(Name, Email, BirthDate, BaseSalary, DepartmentId) " +
+                            "VALUES (?, ?, ?, ?, ?)",
+                            Statement.RETURN_GENERATED_KEYS
+            );
+
             st.setString(1, seller.getName());
             st.setString(2, seller.getEmail());
             st.setDate(3, new java.sql.Date(seller.getBithDate().getTime()));
